@@ -8,6 +8,7 @@ import router from "./router.js"
 console.log('hello from express!')
 const PORT = 4000
 const app = express()
+//app.use(cors())
 
 const startServer = async () => {
   await connectToDb()
