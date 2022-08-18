@@ -10,5 +10,5 @@ const consts = {
   ADMIN_HASHPASSWORD: process.env.ADMIN_HASHPASSWORD || '12345',
   USER_HASHPASSWORD: process.env.USER_HASHPASSWORD || '12345',
 }
-
+console.log(consts)
 export default consts

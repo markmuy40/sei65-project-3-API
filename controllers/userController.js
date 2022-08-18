@@ -12,7 +12,7 @@ const register = async (req, res, next) => {
     return res.status(400).json({ message: 'Email address already exists, please use different one' })
   }
 
-  const usernameExists = await UserModel.findOne({ username: newUser.userName })
+  const usernameExists = await UserModel.findOne({ userName: newUser.userName })
   if (usernameExists) {
     return res.status(400).json({ message: 'Username already exists, please use different one' })
   }
