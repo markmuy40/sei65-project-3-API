@@ -15,7 +15,7 @@ const seed = async () => {
   const dbUser = await UserModel.create([seedingData.user.admin, seedingData.user.user])
 
   dbUser.map((user) => console.log(`${user.userName}  with ${user.role} status has been registered onto the database`))
-  console.log(`You have successfully created ${dbTopic.length} bikes onto the database`)
+  console.log(`You have successfully created ${dbTopic.length} topics onto the database`)
 
   if (mongoose.Connection.readyState !== 0) {
     await mongoose.disconnect()
