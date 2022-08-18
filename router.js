@@ -2,25 +2,26 @@ import topicController from './controllers/topicController.js'
 import commentController from './controllers/commentController.js'
 import userController from './controllers/userController.js'
 import express from 'express'
+import auth from './middleware/auth.js'
 
-const router = express.Router
+const router = express.Router()
 
 router.route('/').get((req, res) => res.status(200).send('API is running'))
 
 router
   .route('/topic')
   .get(topicController.getAll)
-  .post(topicController.post)
+  .post(auth, topicController.post)
 
 router
   .route('/topic/:id')
   .get(topicController.getIndividual)
-  .put(topicController.update)
-  .delete(topicController.remove)
+  .put(auth, topicController.update)
+  .delete(auth, topicController.remove)
 
 router.route('/register').post(userController.register)
 router.route('/login').post(userController.login)
-router.route('/comment/:topicId').post(commentController.create)
-router.route('/comment/:topicId/:commentId').put(commentController.update).delete(commentController.remove)
+router.route('/comment/:topicId').post(auth, commentController.create)
+router.route('/comment/:topicId/:commentId').put(auth, commentController.update).delete(auth, commentController.remove)
 
 export default router

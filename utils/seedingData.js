@@ -1,6 +1,6 @@
 // where the seeding data lives to populate the database
 import bcrypt from 'bcrypt'
-import CONSTS from '../consts.js'
+import CONSTS from '../const.js'
 
 const hashPassword = async (password) => {
   const salt = await bcrypt.genSalt(10)
