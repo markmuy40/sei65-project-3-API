@@ -1,7 +1,7 @@
 import express from 'express'
 import connectToDb from './utils/db.js'
-import logger from './middleware/logger.js'
-import router from './router.js'
+// import logger from './middleware/logger.js'
+// import router from './router.js'
 // import CONSTS from "./consts.js"
 // import cors from 'cors'
 
