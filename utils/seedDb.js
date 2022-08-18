@@ -1,0 +1,1 @@
+// function to populate seddingData into the databse
