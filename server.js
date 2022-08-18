@@ -1,9 +1,15 @@
 import express from 'express'
 import mongoose from 'mongoose'
+// import cors from 'cors'
 
 console.log('hello from express!')
 const PORT = 4000
 const app = express()
+
+// This is CORS
+// app.use(cors())
+
+
 
 const connectToDb = async () => {
   const opts = {
