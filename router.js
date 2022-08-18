@@ -8,7 +8,7 @@ router.route("/").get((req, res) => res.status(200).send("API is running"));
 router
     .route("/topic")
     .get(topic.getAll)
-    .post(topicController.post);
+    .post(topicController.post)
 
 router
     .route("/topic/:id")
