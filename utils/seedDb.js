@@ -18,7 +18,7 @@ const seed = async () => {
   console.log(`You have successfully created ${dbTopic.length} bikes onto the database`)
 
   if (mongoose.Connection.readyState !== 0) {
-    await mongoose.disconnect()
+    mongoose.disconnect()
   }
 
   console.log('database reset! Now run npm run start 👏 ')
