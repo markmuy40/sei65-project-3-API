@@ -12,7 +12,7 @@ const register = async (req, res, next) => {
     return res.status(400).json({ message: 'Email address already exists, please use different one' })
   }
 
-  const usernameExists = await UserModel.findOne({ username: newUser.username })
+  const usernameExists = await UserModel.findOne({ userName: newUser.userName })
   if (usernameExists) {
     return res.status(400).json({ message: 'Username already exists, please use different one' })
   }
@@ -29,9 +29,9 @@ const register = async (req, res, next) => {
 }
 
 const login = async (req, res, next) => {
-  const { username, password } = req.body
+  const { userName, password } = req.body
   try {
-    const user = await UserModel.findOne({ username })
+    const user = await UserModel.findOne({ userName })
     if (!user) {
       return res.status(400).json({ message: 'error, incorrect credentials' })
     }
@@ -41,7 +41,7 @@ const login = async (req, res, next) => {
     }
 
     const payload = {
-      username: user.username,
+      userName: user.userName,
       email: user.email,
     }
     const opts = {
