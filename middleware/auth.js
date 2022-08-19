@@ -11,7 +11,7 @@ const auth = async (req, res, next) => {
   const token = rawToken.split(' ')[1]
   try {
     const decodedToken = jwt.verify(token, CONSTS.JWT_SECRET)
-    const authUser = await UserModel.findOne({ username: decodedToken.username })
+    const authUser = await UserModel.findOne({ userName: decodedToken.userName })
     if (!authUser) {
       return res.status(401).json({ message: 'The token has expired' })
     }
