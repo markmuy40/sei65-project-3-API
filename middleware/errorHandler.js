@@ -11,7 +11,13 @@ const errorHandler = (error, req, res, next) => {
   if (error.name === 'JsonWebTokenError') {
     return res.status(401).json({ message: 'JSON token is invalid' }) 
   }
+
+  if (error.name === 'TypeError') {
+    res.status(500).json({ message: 'Something went wrong, please try again' })
+  }
+
   return res.status(500).json({ message: 'Something went wrong' })
+
 
 }
 
