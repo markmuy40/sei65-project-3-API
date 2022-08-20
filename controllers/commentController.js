@@ -1,5 +1,7 @@
 import TopicModel from '../models/topic.js'
 
+
+// ! create a comment
 const create = async (req, res, next) => {
   const { topicId } = req.params
 
@@ -26,16 +28,27 @@ const create = async (req, res, next) => {
     next(error)
   }
 }
-
+// ! delete a comment
 const remove = async (req, res, next) => {
   const { topicId, commentId } = req.params
   const { id: userId } = req.currentUser
+  console.log('req body', req)
 
   try {
     const topic = await TopicModel.findById(topicId)
+    console.log('topic id', topicId)
+    console.log('user ID', userId)
 
     const deleteComment = topic.comments.find((comment) => comment.id === commentId)
+    console.log('topic comments', topic.comments)
+    console.log('topic comments id', topic.comments.id)
+    console.log('user status', req.currentUser.role)
+    console.log('comment Id', commentId)
+
     if (deleteComment.createdBy.toString() !== userId && req.currentUser.role !== 'admin') {
+      //console.log('current user', userId)
+      //console.log('created by', deleteComment.createdBy)
+
       return req.status(403).json({ message: 'Denied, you are not an admin or user who created this comment' })
     }
 
@@ -49,6 +62,7 @@ const remove = async (req, res, next) => {
   }
 }
 
+// ! edit or update a comment
 const update = async (req, res, next) => {
   const { topicId, commentId } = req.params
   const updatedComment = req.body

@@ -1,12 +1,10 @@
 import mongoose from 'mongoose'
 
 const commentSchema = new mongoose.Schema({
-  comment: { type: String, required: true },
+  text: { type: String, required: true },
   createdAt: { type: Date, default: Date.now() },
   createdBy: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
 })
-
-
 
 const topicSchema = new mongoose.Schema({
   topic: { type: String, required: true, unique: true },

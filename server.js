@@ -4,13 +4,13 @@ import logger from './middleware/logger.js'
 import router from './router.js'
 import CONSTS from './const.js'
 import errorHandler from './middleware/errorHandler.js'
-// import cors from 'cors'
+import cors from 'cors'
 
 console.log('hello from express!')
 
 const app = express()
 
-//app.use(cors())
+app.use(cors())
 
 app.use(express.json())
 
