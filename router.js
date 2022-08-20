@@ -21,7 +21,11 @@ router
 
 router.route('/register').post(userController.register)
 router.route('/login').post(userController.login)
-router.route('/comment/:topicId').post(auth, commentController.create)
-router.route('/comment/:topicId/:commentId').put(auth, commentController.update).delete(auth, commentController.remove)
+router.route('/comment/:topicId')
+  .get(commentController.getAll)
+  .post(auth, commentController.create)
+router.route('/comment/:topicId/:commentId')
+  .put(auth, commentController.update)
+  .delete(auth, commentController.remove)
 
 export default router
