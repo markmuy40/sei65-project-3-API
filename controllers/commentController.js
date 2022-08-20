@@ -11,11 +11,11 @@ const create = async (req, res, next) => {
       return res.status(404).json({ message: `topic with ${topicId} not found` })
     }
 
-    const commentIsRated = topic.comments.some((comment) => comment.createdBy.toString() === req.currentUser.id && comment.rating)
+    // const commentIsRated = topic.comments.some((comment) => comment.createdBy.toString() === req.currentUser.id && comment.rating)
 
-    if (req.body.rating && commentIsRated) {
-      return res.status(403).json({ message: 'You have already rated this topic!' })
-    }
+    // if (req.body.rating && commentIsRated) {
+    //   return res.status(403).json({ message: 'You have already rated this topic!' })
+    // }
 
     const newComment = { ...req.body, createdBy: req.currentUser.id }
     topic.comments.push(newComment)

@@ -15,6 +15,7 @@ const user = {
     userName: 'DaBoss',
     password: await hashPassword(CONSTS.ADMIN_HASHPASSWORD),
     role: 'admin', 
+    _id: '62ff69cd56caa8f68d99cdd8',
   },
   user: {
     email: 'moreemails@anotheremail.com',
