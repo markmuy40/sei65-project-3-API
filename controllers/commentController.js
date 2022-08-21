@@ -1,5 +1,19 @@
 import TopicModel from '../models/topic.js'
 
+const getAll = async (req, res, next) => {
+  const { topicId } = req.params
+  try {
+    const topic = await TopicModel.findById(topicId)
+    if (!topic) {
+      return res.status(404).json({ message: `topic with ${topicId} not found` })
+    }
+    const allComments = topic.comments
+    return res.status(200).json(allComments)
+  } catch(error) {
+    console.log(error)
+    next(error)
+  }
+}
 
 // ! create a comment
 const create = async (req, res, next) => {
@@ -17,7 +31,7 @@ const create = async (req, res, next) => {
     //   return res.status(403).json({ message: 'You have already rated this topic!' })
     // }
 
-    const newComment = { ...req.body, createdBy: req.currentUser.id }
+    const newComment = { ...req.body, createdBy: req.currentUser.id, commentUser: req.currentUser.userName }
     topic.comments.push(newComment)
 
     await topic.save()
@@ -91,6 +105,7 @@ const update = async (req, res, next) => {
 }
 
 export default { 
+  getAll,
   create,
   remove,
   update,
