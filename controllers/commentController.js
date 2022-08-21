@@ -31,7 +31,7 @@ const create = async (req, res, next) => {
     //   return res.status(403).json({ message: 'You have already rated this topic!' })
     // }
 
-    const newComment = { ...req.body, createdBy: req.currentUser.id }
+    const newComment = { ...req.body, createdBy: req.currentUser.id, commentUser: req.currentUser.userName }
     topic.comments.push(newComment)
 
     await topic.save()

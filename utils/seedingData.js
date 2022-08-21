@@ -24,6 +24,13 @@ const user = {
     role: 'user', 
     _id: '62f554f5f8c09484d783db60',
   },
+  user: {
+    email: "lady@mail",
+    userName: "TheLady",
+    password: await hashPassword(CONSTS.USER_HASHPASSWORD),
+    role: 'user',
+    _id: '63021cbd3353ec2cff816188'
+  }
 }
 
 
