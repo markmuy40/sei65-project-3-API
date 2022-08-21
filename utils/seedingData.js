@@ -73,7 +73,7 @@ const topic = [
   {
     topic: 'Can Lewis Hamilton still win the F1 champsionship in 2022?',
     description: 'I found an app that can track the driver and team standings this season. check it https://formula1-seasonresults.netlify.app',
-    imageUrl: 'https://static.wikia.nocookie.net/f1wikia/images/9/9f/LewisHam.png/revision/latest/scale-to-width-down/1000?cb=20220309110334',
+    imageUrl: '',
   
   },
   {
@@ -98,6 +98,12 @@ const topic = [
     topic: 'Looking for a junior dev role in London...',
     description: 'Anyone got an opening? let me know who i can contact.',
     imageUrl: 'https://www.thecoderpedia.com/wp-content/uploads/2020/06/Programming-Memes-Programmer-while-sleeping.jpg',
+  
+  },
+  {
+    topic: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ligula nibh, pharetra a nisl non, suscipit laoreet nibh. Quisque et libero semper, aliquam dolor ac, convallis purus. Donec mattis purus ac arcu cursus, eu ultricies tellus rhoncus. Vestibulum in ultrices ante. Ut eget sagittis massa, in tincidunt purus. Nulla consectetur, mi nec blandit tempor, risus eros congue risus, sed faucibus eros mi quis lacus. Fusce aliquam pharetra porta. Etiam id eros ante. Duis mauris purus, vehicula vitae orci vestibulum, congue suscipit nisi. Integer eros orci, sagittis ultrices porttitor eu, convallis id est. Duis et rutrum nunc. Praesent ut lectus at mi consectetur viverra nec ac sem. Fusce eleifend, arcu quis pulvinar gravida, velit dui vehicula lacus, non pulvinar erat metus vitae augue.',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ligula nibh, pharetra a nisl non, suscipit laoreet nibh. Quisque et libero semper, aliquam dolor ac, convallis purus. Donec mattis purus ac arcu cursus, eu ultricies tellus rhoncus. Vestibulum in ultrices ante. Ut eget sagittis massa, in tincidunt purus. Nulla consectetur, mi nec blandit tempor, risus eros congue risus, sed faucibus eros mi quis lacus. Fusce aliquam pharetra porta. Etiam id eros ante. Duis mauris purus, vehicula vitae orci vestibulum, congue suscipit nisi. Integer eros orci, sagittis ultrices porttitor eu, convallis id est. Duis et rutrum nunc. Praesent ut lectus at mi consectetur viverra nec ac sem. Fusce eleifend, arcu quis pulvinar gravida, velit dui vehicula lacus, non pulvinar erat metus vitae augue. know who i can contact.',
+    imageUrl: '',
   
   }
 ].map((topic) => ({ ...topic, createdBy: user.user._id }))
