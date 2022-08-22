@@ -29,7 +29,7 @@ const post = async (req, res, next) => {
     if (req.currentUser.role !== 'admin'){
       return res.status(401).json({ message: 'Unauthorized to create topics!' })
     }
-    const createdDocument = await TopicModel.create({ ...newTopic, createdBy: req.currentUser.id })
+    const createdDocument = await TopicModel.create({ ...newTopic, createdBy: req.currentUser.id, topicUser: req.currentUser.userName })
     return res.status(200).json(createdDocument)
   } catch (error) {
     next(error)

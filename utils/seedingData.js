@@ -39,6 +39,13 @@ const topic = [
     topic: 'Fire in London Bridge right now!',
     description: 'Its right by the arches near borough market. anyone know what happened?!',
     imageUrl: 'https://www.newsshopper.co.uk/resources/images/14483414.jpg?type=article-full',
+  //   comments: [
+  //     {
+  //     text: 'Oh NO!!',
+	// 	  createdBy: '63021cbd3353ec2cff816188',
+	// 	  commentUser: 'TheLady'
+  //     }
+  // ]
 
   },
   {
@@ -113,6 +120,6 @@ const topic = [
     imageUrl: '',
   
   }
-].map((topic) => ({ ...topic, createdBy: user.user._id }))
+].map((topic) => ({ ...topic, createdBy: user.user._id, topicUser: user.user.userName }))
 
 export default { topic, user }
