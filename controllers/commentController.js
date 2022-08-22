@@ -9,7 +9,7 @@ const getAll = async (req, res, next) => {
     }
     const allComments = topic.comments
     return res.status(200).json(allComments)
-  } catch(error) {
+  } catch (error) {
     console.log(error)
     next(error)
   }

@@ -16,7 +16,7 @@ const topicSchema = new mongoose.Schema({
   likedBy: [],
   createdAt: { type: Date, default: Date.now() },
   createdBy: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
-  topicUser: { type: String, required: true }
+  topicUser: { type: String, required: true },
 })
 
 export default mongoose.model('Topic', topicSchema)
