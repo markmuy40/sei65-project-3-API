@@ -21,7 +21,7 @@ const register = async (req, res, next) => {
     return res.status(400).json({ message: 'Passwords do not match, please try again' })
   }
 
-  if (!newUser.userName || !newUser.email || !newUser.password || !!newUser.confirmPassword) {
+  if (!newUser.userName || !newUser.email || !newUser.password || !newUser.confirmPassword) {
     return res.status(400).json({ message: 'All empty fields must be filled in' })
   }
 
