@@ -21,6 +21,10 @@ const register = async (req, res, next) => {
     return res.status(400).json({ message: 'Passwords do not match, please try again' })
   }
 
+  if (!newUser.userName || !newUser.email || !newUser.password || !!newUser.confirmPassword) {
+    return res.status(400).json({ message: 'All empty fields must be filled in' })
+  }
+
   const salt = await bcrypt.genSalt(10)
   const hashedPassword = await bcrypt.hash(newUser.password, salt)
   const createdUser = await UserModel.create({ ...newUser, password: hashedPassword })
