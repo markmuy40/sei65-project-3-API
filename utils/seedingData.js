@@ -64,6 +64,7 @@ const topic = [
     topic: 'Why does everyone invest in crypto?',
     description: 'Because there\'s money to be made! look https://another-crypto-tracker.netlify.app',
     imageUrl: '',
+    createdAt: 'Mon Aug 23 2022 17:50:53 GMT+0200 (Central European Summer Time)',
   
   },
   {
