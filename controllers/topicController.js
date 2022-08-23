@@ -39,14 +39,16 @@ const post = async (req, res, next) => {
 const update = async (req, res, next) => {
   const { id } = req.params
   const { body: updatedTopic } = req
-  console.log('ciao>',{vero: updatedTopic})
+  
   try {
     const documentToUpdate = await TopicModel.findById(id)
+    console.log('click Like? ', updatedTopic.like, 'click Dislike? ', updatedTopic.dislike)
+    console.log('before DISLIKE:', documentToUpdate.dislike, 'LIKE: ', documentToUpdate.like)
+    console.log('before DISLIKE list:', documentToUpdate.dislikeBy, 'LIKE list: ', documentToUpdate.likedBy)
     if (!documentToUpdate) {
       return res.status(404).json({ message: `Topic ${id} can't be found!` })
     } 
-    if(!updatedTopic.like) {
-    // se non stai facendo like fai avvenire quello che viene dopo
+    if(!updatedTopic.like && !updatedTopic.dislike) {
     if (
       documentToUpdate.createdBy.toString() !== req.currentUser.id 
             && req.currentUser.role !== 'admin'
@@ -56,23 +58,52 @@ const update = async (req, res, next) => {
         .json({ message: 'Forbidden updating this element!' })
     }
     }
-    if (documentToUpdate.likedBy.indexOf(req.currentUser.id) !== -1){
-      documentToUpdate.like -= 1 
-      documentToUpdate.likedBy.splice(documentToUpdate.likedBy.indexOf(req.currentUser.id)-1, 1)
+    //if in the request there is a like run the code below
+    if(updatedTopic.like){
+      if (documentToUpdate.likedBy.indexOf(req.currentUser.id) !== -1){
+        documentToUpdate.like -= 1 
+        documentToUpdate.likedBy.splice(documentToUpdate.likedBy.indexOf(req.currentUser.id)-1, 1)
+        await documentToUpdate.save()
+        console.log('liked removed')
+        return res
+        .status(200)
+        .json({message: "Liked removed!"})  
+      }
+      if (documentToUpdate.dislikeBy.indexOf(req.currentUser.id) !== -1){
+        documentToUpdate.dislike -= 1 
+        documentToUpdate.dislikeBy.splice(documentToUpdate.dislikeBy.indexOf(req.currentUser.id)-1, 1)
+        await documentToUpdate.save()
+        console.log('removed from dislike list')
+      }
+
+      const updatedDocument = await TopicModel.findByIdAndUpdate(id, updatedTopic, {new: true,})
+      documentToUpdate.likedBy.push(req.currentUser.id)
       await documentToUpdate.save()
-      return res
-      .status(200)
-      .json({message: "Liked removed!"})
-  }
-    const updatedDocument = await TopicModel.findByIdAndUpdate(id, updatedTopic, {
-      new: true,
-    })
-    //this function is to save the users'name who made like.
-    documentToUpdate.likedBy.push(req.currentUser.id)
-    await documentToUpdate.save()
+      return res.status(200).json(updatedDocument)
 
-    return res.status(200).json(updatedDocument)
-
+    }
+    //Otherwise if there is un dislike run this code below
+    else if(updatedTopic.dislike) {
+      if (documentToUpdate.dislikeBy.indexOf(req.currentUser.id) !== -1 && documentToUpdate.dislike){
+        documentToUpdate.dislike -= 1 
+        documentToUpdate.dislikeBy.splice(documentToUpdate.dislikeBy.indexOf(req.currentUser.id)-1, 1)
+        await documentToUpdate.save()
+        console.log('dislike removed')
+        return res
+        .status(200)
+        .json({message: "DisLiked removed!"})
+      }
+      if (documentToUpdate.likedBy.indexOf(req.currentUser.id) !== -1){
+        documentToUpdate.like -= 1 
+        documentToUpdate.likedBy.splice(documentToUpdate.likedBy.indexOf(req.currentUser.id)-1, 1)
+        await documentToUpdate.save()
+        console.log('removed from like list')
+      }
+      const updatedDocument = await TopicModel.findByIdAndUpdate(id, updatedTopic, {new: true,})
+      documentToUpdate.dislikeBy.push(req.currentUser.id)
+      await documentToUpdate.save()
+      return res.status(200).json(updatedDocument)
+    }
   } catch (error) {
     next(error)
   }
