@@ -26,7 +26,7 @@ const getIndividual = async (req, res, next) => {
 const post = async (req, res, next) => {
   const { body: newTopic } = req
   try {
-    if (req.currentUser.role !== 'admin'){
+    if (req.currentUser.role !== 'admin' && req.currentUser.role !=='user'){
       return res.status(401).json({ message: 'Unauthorized to create topics!' })
     }
     const createdDocument = await TopicModel.create({ ...newTopic, createdBy: req.currentUser.id, topicUser: req.currentUser.userName })
@@ -42,9 +42,6 @@ const update = async (req, res, next) => {
   
   try {
     const documentToUpdate = await TopicModel.findById(id)
-    console.log('click Like? ', updatedTopic.like, 'click Dislike? ', updatedTopic.dislike)
-    console.log('before DISLIKE:', documentToUpdate.dislike, 'LIKE: ', documentToUpdate.like)
-    console.log('before DISLIKE list:', documentToUpdate.dislikeBy, 'LIKE list: ', documentToUpdate.likedBy)
     if (!documentToUpdate) {
       return res.status(404).json({ message: `Topic ${id} can't be found!` })
     } 
