@@ -13,6 +13,8 @@ const topicSchema = new mongoose.Schema({
   comments: [commentSchema],
   imageUrl: String,
   like: { type: Number, default: 0 },
+  dislike:{ type: Number, default: 0 },
+  dislikeBy: [],
   likedBy: [],
   createdAt: { type: Date, default: Date.now() },
   createdBy: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
