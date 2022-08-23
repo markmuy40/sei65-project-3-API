@@ -1,7 +1,7 @@
 import TopicModel from '../models/topic.js'
 
 const getAll = async (req, res) => {
-  const allTopics = await TopicModel.find()
+  const allTopics = await TopicModel.find().sort({ createdBy: -1 }).limit(30)
   return res.status(200).json(allTopics)
 }
 
