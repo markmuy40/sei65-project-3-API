@@ -5,6 +5,16 @@ const getAll = async (req, res) => {
   return res.status(200).json(allTopics)
 }
 
+const highestComment = async (req, res) => {
+  const allTopics = await TopicModel.find().sort({ numberOfComments: -1 }).limit(1)
+  return res.status(200).json(allTopics)
+}
+
+const mostLikes = async (req, res) => {
+  const allTopics = await TopicModel.find().sort({ like: -1 }).limit(1)
+  return res.status(200).json(allTopics)
+}
+
 const getIndividual = async (req, res, next) => {
   const { id } = req.params
   try {
@@ -48,26 +58,26 @@ const update = async (req, res, next) => {
     if (!documentToUpdate) {
       return res.status(404).json({ message: `Topic ${id} can't be found!` })
     } 
-    if(!updatedTopic.like && !updatedTopic.dislike) {
-    if (
-      documentToUpdate.createdBy.toString() !== req.currentUser.id 
+    if (!updatedTopic.like && !updatedTopic.dislike) {
+      if (
+        documentToUpdate.createdBy.toString() !== req.currentUser.id 
             && req.currentUser.role !== 'admin'
-    ){
-      return res
-        .status(403)
-        .json({ message: 'Forbidden updating this element!' })
-    }
+      ){
+        return res
+          .status(403)
+          .json({ message: 'Forbidden updating this element!' })
+      }
     }
     //if in the request there is a like run the code below
-    if(updatedTopic.like){
+    if (updatedTopic.like){
       if (documentToUpdate.likedBy.indexOf(req.currentUser.id) !== -1){
         documentToUpdate.like -= 1 
         documentToUpdate.likedBy.splice(documentToUpdate.likedBy.indexOf(req.currentUser.id)-1, 1)
         await documentToUpdate.save()
         console.log('liked removed')
         return res
-        .status(200)
-        .json({message: "Liked removed!"})  
+          .status(200)
+          .json({ message: 'Liked removed!' })  
       }
       if (documentToUpdate.dislikeBy.indexOf(req.currentUser.id) !== -1){
         documentToUpdate.dislike -= 1 
@@ -76,22 +86,22 @@ const update = async (req, res, next) => {
         console.log('removed from dislike list')
       }
 
-      const updatedDocument = await TopicModel.findByIdAndUpdate(id, updatedTopic, {new: true,})
+      const updatedDocument = await TopicModel.findByIdAndUpdate(id, updatedTopic, { new: true })
       documentToUpdate.likedBy.push(req.currentUser.id)
       await documentToUpdate.save()
       return res.status(200).json(updatedDocument)
 
     }
     //Otherwise if there is un dislike run this code below
-    else if(updatedTopic.dislike) {
+    else if (updatedTopic.dislike) {
       if (documentToUpdate.dislikeBy.indexOf(req.currentUser.id) !== -1 && documentToUpdate.dislike){
         documentToUpdate.dislike -= 1 
         documentToUpdate.dislikeBy.splice(documentToUpdate.dislikeBy.indexOf(req.currentUser.id)-1, 1)
         await documentToUpdate.save()
         console.log('dislike removed')
         return res
-        .status(200)
-        .json({message: "DisLiked removed!"})
+          .status(200)
+          .json({ message: 'DisLiked removed!' })
       }
       if (documentToUpdate.likedBy.indexOf(req.currentUser.id) !== -1){
         documentToUpdate.like -= 1 
@@ -99,7 +109,7 @@ const update = async (req, res, next) => {
         await documentToUpdate.save()
         console.log('removed from like list')
       }
-      const updatedDocument = await TopicModel.findByIdAndUpdate(id, updatedTopic, {new: true,})
+      const updatedDocument = await TopicModel.findByIdAndUpdate(id, updatedTopic, { new: true })
       documentToUpdate.dislikeBy.push(req.currentUser.id)
       await documentToUpdate.save()
       return res.status(200).json(updatedDocument)
@@ -138,4 +148,6 @@ export default {
   post,
   update,
   remove,
+  highestComment,
+  mostLikes,
 }

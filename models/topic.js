@@ -21,10 +21,10 @@ const topicSchema = new mongoose.Schema({
   createdBy: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
   topicUser: { type: String, required: true },
 })
-// topicSchema.pre('save', function(next){
-//   topicSchema.numberOfComments = topicSchema.comments.length
-//   next()
-// })
+topicSchema.pre('save', function(next){ 
+  this.numberOfComments = this.comments ? this.comments.length : 0
+  next()
+})
 
 
 export default mongoose.model('Topic', topicSchema)

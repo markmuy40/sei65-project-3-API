@@ -39,14 +39,13 @@ const topic = [
     topic: 'Fire in London Bridge right now!',
     description: 'Its right by the arches near borough market. anyone know what happened?!',
     imageUrl: 'https://www.newsshopper.co.uk/resources/images/14483414.jpg?type=article-full',
-    comments: [
+    comments: [ 
       {
-      text: 'Heroes',
-		createdBy: '6303f3c828cbab4ac7bb24e1',
-		commentUser: 'NewUser3'
+        text: 'Heroes',
+        createdBy: '6303f3c828cbab4ac7bb24e1',
+        commentUser: 'NewUser3',
       }
-  ]
-
+    ],
   },
   {
     topic: 'Killing some downtime at the office and found a fun quiz site!',
