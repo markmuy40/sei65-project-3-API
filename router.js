@@ -28,4 +28,6 @@ router.route('/comment/:topicId/:commentId')
   .put(auth, commentController.update)
   .delete(auth, commentController.remove)
 
+router.route('/highest-comment').get(topicController.highestComments)
+
 export default router
