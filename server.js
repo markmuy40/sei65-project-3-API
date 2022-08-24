@@ -11,13 +11,9 @@ console.log('hello from express!')
 const app = express()
 
 app.use(cors())
-
 app.use(express.json())
-
 app.use(logger)
-
 app.use(router)
-
 app.use(errorHandler)
 
 app.use((req, res, next) => {
