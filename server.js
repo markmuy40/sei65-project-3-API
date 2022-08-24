@@ -20,7 +20,7 @@ app.use(router)
 
 app.use(errorHandler)
 
-app.use((error, req, res) => {
+app.use((req, res, next) => {
   return res.status(404).send('404 - Endpoint not found')
 })
 

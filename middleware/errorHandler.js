@@ -15,6 +15,9 @@ const errorHandler = (error, req, res, next) => {
   if (error.name === 'TypeError') {
     res.status(500).json({ message: 'Something went wrong, please try again' })
   }
+  if (error.name === 'MongoServerError') {
+    res.status(500).json({ message: 'Try another Title!' })
+  }
 
   return res.status(500).json({ message: 'Something went wrong' })
 
