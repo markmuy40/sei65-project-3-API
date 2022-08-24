@@ -28,6 +28,7 @@ router.route('/comment/:topicId/:commentId')
   .put(auth, commentController.update)
   .delete(auth, commentController.remove)
 
+router.route('/latest-topic').get(topicController.latestTopic)
 router.route('/highest-comment').get(topicController.highestComment)
 router.route('/most-likes').get(topicController.mostLikes)
 

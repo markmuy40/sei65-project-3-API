@@ -1,7 +1,12 @@
 import TopicModel from '../models/topic.js'
 
 const getAll = async (req, res) => {
-  const allTopics = await TopicModel.find().sort({ createdBy: -1 }).limit(30)
+  const allTopics = await TopicModel.find().sort({ createdAt: -1 })
+  return res.status(200).json(allTopics)
+}
+
+const latestTopic = async (req, res) => {
+  const allTopics = await TopicModel.find().sort({ createdAt: -1 }).limit(1)
   return res.status(200).json(allTopics)
 }
 
@@ -145,6 +150,7 @@ export default {
   post,
   update,
   remove,
+  latestTopic,
   highestComment,
   mostLikes,
 }
