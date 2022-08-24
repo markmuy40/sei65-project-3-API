@@ -41,7 +41,7 @@ const getIndividual = async (req, res, next) => {
 const post = async (req, res, next) => {
   const { body: newTopic } = req
   try {
-    if (req.currentUser.role !== 'admin' && req.currentUser.role !=='user'){
+    if (req.currentUser.role !== 'admin' && req.currentUser.role !== 'user'){
       return res.status(401).json({ message: 'Unauthorized to create topics!' })
     }
     const createdDocument = await TopicModel.create({ ...newTopic, createdBy: req.currentUser.id, topicUser: req.currentUser.userName })
@@ -74,7 +74,7 @@ const update = async (req, res, next) => {
     if (updatedTopic.like){
       if (documentToUpdate.likedBy.indexOf(req.currentUser.id) !== -1){
         documentToUpdate.like -= 1 
-        documentToUpdate.likedBy.splice(documentToUpdate.likedBy.indexOf(req.currentUser.id)-1, 1)
+        documentToUpdate.likedBy.splice(documentToUpdate.likedBy.indexOf(req.currentUser.id) - 1, 1)
         await documentToUpdate.save()
         console.log('liked removed')
         return res
@@ -83,7 +83,7 @@ const update = async (req, res, next) => {
       }
       if (documentToUpdate.dislikeBy.indexOf(req.currentUser.id) !== -1){
         documentToUpdate.dislike -= 1 
-        documentToUpdate.dislikeBy.splice(documentToUpdate.dislikeBy.indexOf(req.currentUser.id)-1, 1)
+        documentToUpdate.dislikeBy.splice(documentToUpdate.dislikeBy.indexOf(req.currentUser.id) - 1, 1)
         await documentToUpdate.save()
         console.log('removed from dislike list')
       }
@@ -93,12 +93,11 @@ const update = async (req, res, next) => {
       await documentToUpdate.save()
       return res.status(200).json(updatedDocument)
 
-    }
     //Otherwise if there is un dislike run this code below
-    else if (updatedTopic.dislike) {
+    } else if (updatedTopic.dislike) {
       if (documentToUpdate.dislikeBy.indexOf(req.currentUser.id) !== -1 && documentToUpdate.dislike){
         documentToUpdate.dislike -= 1 
-        documentToUpdate.dislikeBy.splice(documentToUpdate.dislikeBy.indexOf(req.currentUser.id)-1, 1)
+        documentToUpdate.dislikeBy.splice(documentToUpdate.dislikeBy.indexOf(req.currentUser.id) - 1, 1)
         await documentToUpdate.save()
         console.log('dislike removed')
         return res
@@ -107,7 +106,7 @@ const update = async (req, res, next) => {
       }
       if (documentToUpdate.likedBy.indexOf(req.currentUser.id) !== -1){
         documentToUpdate.like -= 1 
-        documentToUpdate.likedBy.splice(documentToUpdate.likedBy.indexOf(req.currentUser.id)-1, 1)
+        documentToUpdate.likedBy.splice(documentToUpdate.likedBy.indexOf(req.currentUser.id) - 1, 1)
         await documentToUpdate.save()
         console.log('removed from like list')
       }
