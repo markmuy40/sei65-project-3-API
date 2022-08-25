@@ -73,9 +73,9 @@ const update = async (req, res, next) => {
 
     // ! if in the request there is a like run the code below
     if (updatedTopic.like){
-      if (documentToUpdate.likedBy.indexOf(req.currentUser.id) !== -1){
+      if (documentToUpdate.likedBy.indexOf(req.currentUser.id) !== -1 && documentToUpdate.like ){
         documentToUpdate.like -= 1 
-        documentToUpdate.likedBy.splice(documentToUpdate.likedBy.indexOf(req.currentUser.id) - 1, 1)
+        documentToUpdate.likedBy.splice(documentToUpdate.likedBy.indexOf(req.currentUser.id), 1)
         await documentToUpdate.save()
         return res
           .status(200)
@@ -83,7 +83,7 @@ const update = async (req, res, next) => {
       }
       if (documentToUpdate.dislikeBy.indexOf(req.currentUser.id) !== -1){
         documentToUpdate.dislike -= 1 
-        documentToUpdate.dislikeBy.splice(documentToUpdate.dislikeBy.indexOf(req.currentUser.id) - 1, 1)
+        documentToUpdate.dislikeBy.splice(documentToUpdate.dislikeBy.indexOf(req.currentUser.id), 1)
         await documentToUpdate.save()
       }
 
@@ -96,7 +96,7 @@ const update = async (req, res, next) => {
     } else if (updatedTopic.dislike) {
       if (documentToUpdate.dislikeBy.indexOf(req.currentUser.id) !== -1 && documentToUpdate.dislike){
         documentToUpdate.dislike -= 1 
-        documentToUpdate.dislikeBy.splice(documentToUpdate.dislikeBy.indexOf(req.currentUser.id) - 1, 1)
+        documentToUpdate.dislikeBy.splice(documentToUpdate.dislikeBy.indexOf(req.currentUser.id), 1)
         await documentToUpdate.save()
         return res
           .status(200)
@@ -104,7 +104,7 @@ const update = async (req, res, next) => {
       }
       if (documentToUpdate.likedBy.indexOf(req.currentUser.id) !== -1){
         documentToUpdate.like -= 1 
-        documentToUpdate.likedBy.splice(documentToUpdate.likedBy.indexOf(req.currentUser.id) - 1, 1)
+        documentToUpdate.likedBy.splice(documentToUpdate.likedBy.indexOf(req.currentUser.id), 1)
         await documentToUpdate.save()
       }
       const updatedDocument = await TopicModel.findByIdAndUpdate(id, updatedTopic, { new: true })
