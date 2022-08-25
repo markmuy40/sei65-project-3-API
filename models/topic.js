@@ -11,6 +11,7 @@ const topicSchema = new mongoose.Schema({
   topic: { type: String, required: true, unique: true },
   description: String,
   comments: [commentSchema],
+  numberOfComments: Number,
   imageUrl: String,
   like: { type: Number, default: 0 },
   dislike: { type: Number, default: 0 },
@@ -20,5 +21,10 @@ const topicSchema = new mongoose.Schema({
   createdBy: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
   topicUser: { type: String, required: true },
 })
+topicSchema.pre('save', function(next){ 
+  this.numberOfComments = this.comments ? this.comments.length : 0
+  next()
+})
+
 
 export default mongoose.model('Topic', topicSchema)

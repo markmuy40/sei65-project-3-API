@@ -18,7 +18,6 @@ const auth = async (req, res, next) => {
     req.currentUser = authUser
     next()
   } catch (error) {
-    console.log('error ----->', error)
     next(error)
   }
 }

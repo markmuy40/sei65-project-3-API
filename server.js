@@ -11,16 +11,12 @@ console.log('hello from express!')
 const app = express()
 
 app.use(cors())
-
 app.use(express.json())
-
 app.use(logger)
-
 app.use(router)
-
 app.use(errorHandler)
 
-app.use((error, req, res) => {
+app.use((req, res, next) => {
   return res.status(404).send('404 - Endpoint not found')
 })
 
