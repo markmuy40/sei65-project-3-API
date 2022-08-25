@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import CONSTS from '../const.js'
 
 // import CONSTS from "../consts.js";
 
@@ -7,7 +8,7 @@ const connectToDb = async () => {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   }
-  return mongoose.connect('mongodb://localhost:27017/topic', opts)
+  return mongoose.connect(CONSTS.DB_CONNECTION_STRING, opts)
 }
 
 export default connectToDb
