@@ -1,11 +1,12 @@
-import mongoose from 'mongoose'
+import mongoose from "mongoose";
 
 const commentSchema = new mongoose.Schema({
   text: { type: String, required: true },
-  createdAt: { type: Date, default: Date.now() },
-  createdBy: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
+  createdAt: { type: Date, default: Date.now },
+  createdBy: { type: mongoose.Schema.ObjectId, ref: "User", required: true },
   commentUser: { type: String, required: true },
-})
+  edited: { type: Boolean, default: false },
+});
 
 const topicSchema = new mongoose.Schema({
   topic: { type: String, required: true, unique: true },
@@ -17,14 +18,13 @@ const topicSchema = new mongoose.Schema({
   dislike: { type: Number, default: 0 },
   dislikeBy: [],
   likedBy: [],
-  createdAt: { type: Date, default: Date.now() },
-  createdBy: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
+  createdAt: { type: Date, default: () => new Date() },
+  createdBy: { type: mongoose.Schema.ObjectId, ref: "User", required: true },
   topicUser: { type: String, required: true },
-})
-topicSchema.pre('save', function(next){ 
-  this.numberOfComments = this.comments ? this.comments.length : 0
-  next()
-})
+});
+topicSchema.pre("save", function (next) {
+  this.numberOfComments = this.comments ? this.comments.length : 0;
+  next();
+});
 
-
-export default mongoose.model('Topic', topicSchema)
+export default mongoose.model("Topic", topicSchema);
